@@ -14,3 +14,9 @@ def read_config(configuration_file: str) -> tuple[int, str]:
         config = yaml.safe_load(f)
 
     return config["max_days_since_calibration"], config["output_file"]
+
+def read_join(sensor_file: str, calibration_file:str) -> pd.DataFrame:
+    sensor = pd.read_excel(sensor_file)
+    calibration = pd.read_csv(calibration_file)
+
+    return pd.merge(sensor, calibration, on="sensor_id")
